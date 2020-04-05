@@ -86,7 +86,7 @@ Create our three endpoints, using:
 
 ## Step 3 - Check and tidy up
 
-On postman or in your browser check that you can access both endpoints and that the messages displayed match the ones you set in your server
+On postman or in your browser check that you can access all endpoints and that the messages displayed match the ones you set in your server
 
 ✅ You can change the message in the controller of the root route to something more meaningful than "Hello World", eg, "Welcome to the Jokes API" or similar.
 ✅ Don't forget to commit and push your work.
@@ -116,14 +116,14 @@ As with our previous track, we will be using `end-to-end` testing for our API en
 
 6. Write other three tests so that the three endpoints you created are tested
 
-- 💡Get into the habit of seeing your tests fail first, and fix them afterwards
-- 💡If your test fail with `Expected: 200, Received: 404` have a look at routes - either what you're testing how it's defined in `app.js`
+- 💡Get into the habit of seeing your tests fail first, and fix them after
+- 💡If your test fail with `Expected: 200, Received: 404` have a look at routes - the problem resides either on the route you're trying to hit with supertest or with how the route is defined in `app.js`
 
 ## Step 5 - External API call using `request` and callbacks
 
-Our API is up and running, we have 4 endpoints that are pretty `dumb` so it is time for us to make our first call to the external Joke API and fetch some data. For that we will be using [`request`](https://www.npmjs.com/package/request), a library which is installed by default when we do `npm install` and it's located in the `node_modules` directory of your project.
+Our API is up and running, we have 4 endpoints that are pretty `dumb` so it is time for us to make our first call to the external Joke API and fetch some data. For that we will be using [`request`](https://www.npmjs.com/package/request), a library which is installed by default when we do `npm install` and is located in the `node_modules` directory of your project.
 
-This means we won't need to install it specifically (as in `npm i --save request`) and can use it directly by require it on the top of our `app.js` by doing
+This means we won't need to install it specifically (as in `npm i request`) and can use it directly by require it on the top of our `app.js` by doing
 
 ```
 const request = require('request');
@@ -154,20 +154,20 @@ So what is happening here?
 
   - notice how the callback function has two parameters, `error` first and `response` second. These are called error-first callbacks and are common in the node.js ecosystem.
 
-- [3] we handle our `error` first, in this case in very basic way, by logging it. More on error handling at a later stage.
+- [3] we handle our `error` first, in this case in a very basic way, by simply logging it. We will learn error handling in more details at a later stage.
   - ❗️any `console.log()` in your code will be displayed in the terminal session that is running your express server.
-- [4] We parse the `response.body` as this is the object that contains all the the data we need, which is sent as sringified JSON by the jokes API. Read more [`JSON.parse(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse)`]() and [JSON.stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
+- [4] We parse the `response.body` as this is the object that contains all the the data we need, which is sent as stringified JSON by the jokes API. Read more about [`JSON.parse(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse)`]() and [JSON.stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
 - [5] We move our response method inside the `request` callback function so that we can have access to the `response` and `parsedBody` objects that we want to send
   - `response` is a very large object, feel free to log it to the console to check all the data it contains
   - We are sending a key-value pair of `{jokes: ...}` and the value of `parsedBody.value`
 
 ❗️Do not confuse request function we're using here with the one we use in our tests which is powered by _supertest_.
 
-❗️Notice that your controller is also a callback, but in this case a callback with two other parameters (`req` and `res`), so we have a callback inside a callback. Both functions have parameters with very similar names: `res` and `response`. Have a look at what might cause a [callback hell](http://callbackhell.com/).
+❗️Notice that your controller is also a callback, but in this case a callback with two other parameters (`req` and `res`), so we have a callback inside a callback 🤯. Both functions have parameters with very similar names: `res` and `response`. Have a look at what might cause a [callback hell](http://callbackhell.com/).
 
 ❗️we use `request` here as a way of exemplifying a callback based library but, as you may have noticed, this library has been deprecated and we do not recommend its use.
 
-✅ disable the es-lint rules that are highlighting the require of `request` and the logging of the error by pasting the following code the line above `// eslint-disable-next-line`
+✅ disable the es-lint rules that are highlighting the require of `request` and logging of the error by pasting the following code the line above `// eslint-disable-next-line`
 
 ## Step 6 - External API call using `axios` and promises
 
@@ -194,7 +194,7 @@ So what can we see here?
 
 - [1] the `app.get()` function continues to start and end in the same place
 - [2] we have introduced a new function in our controller called `axios`
-- [3] we use the `.get()` method from `axios` which returns a promise. A Javascript promise will have only two states: either is resolved or rejected.
+- [3] we use the `.get()` method from `axios` which returns a promise. A Javascript promise will have three states: either is resolved, rejected or pending.
 - [4] if the promise is resolved (success) we use the `.then()` method to handle the external API response.
 - [5] if the promise is rejected (an error occurs) we can handle it on `.catch()`
 
@@ -225,12 +225,12 @@ As `axios` is already installed we will just need to update our `/joke/random/pe
 ```
 
 - [1] The `app.get()` function continues to start and end in the same place, however the controller callback now includes a `async` keyword. [MDN async](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
-- [2] We're deconstructing the two parameters in our route `:first` and `:last`
+- [2] We're destructuring the two parameters in our route `:first` and `:last`[MDN Object destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Object_destructuring)
 - [3] We are using a try..catch block to make sure if there's an error it'll be caught. [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch) [More try/catch](https://javascript.info/try-catch)
 - [4] We declare a constant with the name `response` that will capture the value of running `.get()` in `axios`. Notice the `await` keyword. This means that the `async` function execution will be paused until there's a value returned, value which we are "awaiting". [MDN await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await)
 - [6] The `catch(e){}` block works similarly to the `.catch(e)` expression on a Promise
 
-✅Async/await is a relatively new way to write asynchronous code. Previous alternatives for asynchronous code are callbacks and promises.  
+✅Async/await is a relatively new way to write asynchronous code. Previous alternatives for asynchronous code are callbacks and promises. 
 ✅Async/await is actually just [syntactic sugar](https://en.wikipedia.org/wiki/Syntactic_sugar) built on top of promises.  
 ✅Async/await makes asynchronous code look and behave a little more like synchronous code.
 
