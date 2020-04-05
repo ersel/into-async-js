@@ -8,7 +8,7 @@ While being single-threaded simplifies writing code because we don’t have to w
 
 Imagine requesting some data from an API, like we've done in the previous track. Depending upon the situation the server might take some time to process the request while blocking the main thread making a web page unresponsive or an API too slow.
 
-That’s where asynchronous JavaScript comes into play. Using asynchronous JavaScript, such as `callbacks`, `promises`, and `async/await`, you can perform long network requests without blocking our main thread of execution.
+That’s where asynchronous JavaScript comes into play. Using asynchronous JavaScript, such as `callbacks`, `promises`, and `async..await`, you can perform long network requests without blocking our main thread of execution.
 
 The three patterns above can be used _almost_ interchangeably, and experience and developer preference will have a huge influence in which to be and in which circumstances.
 
