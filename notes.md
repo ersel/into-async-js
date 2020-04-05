@@ -35,7 +35,7 @@ The task this week is to create a Node express server, which will run two tasks 
 
 - a query `?explicit=true` that will allow explicit jokes to be returned
 
-4. The `random` endpoints should accept:
+4. The `random` endpoint should accept:
 
 - a query `?save=true` that will allow the joke to be saved to you computer file system
 
