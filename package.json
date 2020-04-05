@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.19.2",
     "express": "^4.17.1"
   },
   "scripts": {
     "start": "nodemon index.js",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand --watch"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
