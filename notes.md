@@ -67,7 +67,7 @@ Fork, clone, install and run the [Manchester Codes Express Bootstrap](https://gi
 - 💡The repo README contains the necessary information to perform the above task
 - ❌Don't move forward with the track without first checking if the server is running correctly (instructions in the repo)
 
-- ✅have two spaces open in your terminal, one where you can keep your server running, another where you can interact with the files and code
+- ✅have two spaces open in your terminal, one where you can keep your server running, another where you can interact with the files, tests and code
 
   SCREENSHOT HERE
 
