@@ -6,7 +6,7 @@ Javascript is a single-threaded programming language which means only one thing 
 
 While being single-threaded simplifies writing code because we don’t have to worry about concurrency issues, it also means we cannot perform long operations such as network access without blocking the main thread.
 
-Imagine requesting some data from an API, like we've done in the previous track. Depending upon the situation the server might take some time to process the request while blocking the main thread making the web page unresponsive.
+Imagine requesting some data from an API, like we've done in the previous track. Depending upon the situation the server might take some time to process the request while blocking the main thread making a web page unresponsive or an API too slow.
 
 That’s where asynchronous JavaScript comes into play. Using asynchronous JavaScript, such as `callbacks`, `promises`, and `async/await`, you can perform long network requests without blocking our main thread of execution.
 
